@@ -1,0 +1,16 @@
+numpy==1.19.2
+seaborn==0.11.0
+scipy==1.5.2
+tqdm==4.49.0
+networkx==2.5
+mbtr==0.1.1
+matplotlib==3.3.2
+numba==0.51.2
+lightgbm==3.0.0
+pandas==1.1.2
+influxdb==5.2.3
+statsmodels==0.12.0
+wget==3.2
+sharedmem==0.3.7
+scikit_learn==0.23.2
+tables==3.6.1

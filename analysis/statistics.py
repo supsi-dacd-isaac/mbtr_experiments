@@ -14,7 +14,7 @@ plot_pars = {"size": (5, 2.5),
 # -------------------------------- Fourier Smoothing -------------------------------
 # ----------------------------------------------------------------------------------
 
-# variable: MAPE, independent var: step ahead, groups: time series
+# variable: MAPE, independent var: n harmonics, groups: time series
 
 results = np.load('data/cv_res_fourier_144.npy', allow_pickle=True).item()
 k_cv = len(results[list(results.keys())[0]])
@@ -28,7 +28,7 @@ for k in results.keys():
 # rename columns for plot
 resall = resall[['mape_miso', 'mape_mimo', 'mape']]
 resall.columns = ['miso', 'mimo', 'mbt']
-fig, ax = nemenyi_unrolled_plot(resall, 'rank [-]', 'steps ahead [min]', k_cv=k_cv, rot=60, **plot_pars)
+fig, ax = nemenyi_unrolled_plot(resall, 'rank [-]', 'n freq [-]', k_cv=k_cv, rot=60, **plot_pars)
 plt.title('MAPE')
 plt.savefig('figs/stats_fourier.pdf')
 plt.show()

@@ -15,7 +15,7 @@ def nemenyi(data, conf_level=0.9, sort=True, labels=None, k_cv=1):
     are_identical = True if fr_p_val > 1 - conf_level else False
 
     # Nemenyi critical distance and bounds of intervals
-    r_stat = qsturng(conf_level, m, np.inf) * ((m * (n+1)) / (12 * n)) ** 0.5
+    r_stat = qsturng(conf_level, m, np.inf) * ((m * (m+1)) / (12 * n)) ** 0.5
 
     # Rank methods for each time series
     ranks_matrix = np.vstack(list(map(rankdata, data)))
@@ -31,7 +31,7 @@ def nemenyi_unrolled_plot(data, ylabel, xlabel, k_cv=1, rot=0, **set_fig_kwargs)
     for i in np.unique(data.index):
         d_i = data.loc[data.index == i]
         ranks_means, ranks_intervals, fr_p_val, fr_stat, are_identical = nemenyi(d_i.values, k_cv=k_cv)
-        print('index {},  are identical: {}'.format(i, are_identical))
+        print('index {},  are identical: {}, Fr. p_val:{}'.format(i, are_identical, fr_p_val))
         nem_i_dat = np.hstack([ranks_means.reshape(-1,1),ranks_intervals.T])
         nem_i = pd.DataFrame(nem_i_dat, columns=['means', 'l_b', 'u_b'], index=np.tile(i,len(models)))
         nem_i = pd.concat([nem_i, pd.Series(models, name='model', index=nem_i.index)], axis=1)

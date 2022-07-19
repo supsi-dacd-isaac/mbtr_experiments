@@ -77,7 +77,7 @@ def cv_function(x_tr,y_tr,x_te,y_te,pars,do_refit):
 
         # fit MBT model
         m = MBT(**pars)
-        m.fit(x_tr, y_tr[:, [t]], do_plot=False)
+        m.fit(x_tr, y_tr[:, [t]], do_plot=True)
         q_hat_t = m.predict(x_te)
 
         q_hat_mgb.append(q_hat_t)

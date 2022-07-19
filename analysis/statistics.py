@@ -11,6 +11,32 @@ plot_pars = {"size": (5, 2.5),
              "b": 0.2}
 
 # ----------------------------------------------------------------------------------
+# --------------------------------   M4 regression   -------------------------------
+# ----------------------------------------------------------------------------------
+
+# variable: MAPE, independent var: n harmonics, groups: time series
+
+results = np.load('data/cv_res_m4.npy', allow_pickle=True).item()
+k_cv = len(results[list(results.keys())[0]])
+
+resall = pd.DataFrame()
+for k in results.keys():
+    results_k = get_cv_results(results[k])
+    results_k['series'] = k
+    resall = pd.concat([resall, pd.DataFrame(results_k, index=[0])], axis=0)
+
+# rename columns for plot
+resall = resall[['mape_miso', 'mape_mimo', 'mape']]
+resall.columns = ['miso', 'mimo', 'mbt']
+fig, ax = nemenyi_unrolled_plot(resall, 'rank [-]', '', k_cv=k_cv, rot=60, **plot_pars)
+ax.set_xticks([])
+
+plt.title('MAPE')
+plt.savefig('figs/stats_m4.pdf')
+plt.show()
+
+
+# ----------------------------------------------------------------------------------
 # -------------------------------- Fourier Smoothing -------------------------------
 # ----------------------------------------------------------------------------------
 

@@ -3,10 +3,10 @@ import seaborn as sb
 import numpy as np
 
 
-def set_figure(size, subplots=(1,1), context='paper', style='darkgrid',font_scale = 1, l=0.2, w=0.1, h=0.1, b=0.1, r=0.9,**kwargs):
+def set_figure(size, subplots=(1,1), context='paper', style='darkgrid',font_scale = 1, l=0.2, w=0.1, h=0.1, b=0.1, r=0.9,t=None, **kwargs):
     sb.set(context=context,style=style, font_scale=font_scale)
     fig, ax = plt.subplots(subplots[0],subplots[1], figsize=size, **kwargs)
-    plt.subplots_adjust(left=l, wspace=w, hspace=h, bottom=b,right=r)
+    plt.subplots_adjust(left=l, wspace=w, hspace=h, bottom=b,right=r,top=t)
     return fig, ax
 
 

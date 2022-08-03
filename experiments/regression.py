@@ -91,7 +91,7 @@ def cv_fun(x_tr,y_tr,x_te,y_te):
 
 
 k = 3
-series = list(data['data'].keys())[:50]
+series = list(data['data'].keys())
 cv_res = {}
 for s in series:
     x_pd, y_pd, x, y, t, x_0, y_0, y_hat_persistence = frmt(d=data, target_names={

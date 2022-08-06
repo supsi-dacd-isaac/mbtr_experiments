@@ -81,16 +81,16 @@ def cv_function(x_tr,y_tr,x_te,y_te,pars,do_refit):
         q_hat_t = m.predict(x_te)
 
         q_hat_mgb.append(q_hat_t)
-        results_mimo_t = quantile_scores(np.expand_dims(q_hat[-1],2), y_te[:,[t]], alphas)
+        results_miso_t = quantile_scores(np.expand_dims(q_hat[-1],2), y_te[:,[t]], alphas)
         results_mgb_t = quantile_scores(np.expand_dims(q_hat_mgb[-1],2), y_te[:, [t]], alphas)
-        print('crsp mimo {:0.2e}, mbg {:0.2e}'.format(results_mimo_t['crps_mean'],results_mgb_t['crps_mean']))
+        print('crsp miso {:0.2e}, mbg {:0.2e}'.format(results_miso_t['crps_mean'],results_mgb_t['crps_mean']))
     q_hat = np.dstack(q_hat)
     q_hat_mgb = np.dstack(q_hat_mgb)
 
-    results_mimo = quantile_scores(q_hat, y_te, alphas)
+    results_miso = quantile_scores(q_hat, y_te, alphas)
     results_mgb = quantile_scores(q_hat_mgb, y_te, alphas)
-    results = {'mimo':results_mimo,
-               'mgb':results_mgb}
+    results = {'miso': results_miso,
+               'mgb': results_mgb}
     plt.close('all')
     return results
 

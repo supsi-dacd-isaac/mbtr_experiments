@@ -143,15 +143,15 @@ def plot_reliability_diff(results,size,font_scale):
     n_q = results[list(results.keys())[0]]['reliability'].shape[0]
     alphas = np.linspace(1 / n_q, 1 - 1 / n_q, n_q)
     for k,v in results.items():
-        if k=='mimo':
+        if k=='miso':
             continue
         plt.sca(ax[z])
         n = v['reliability'].shape[1]
         cm = plt.get_cmap('viridis',n)
         for i in range(n):
             d = np.abs(alphas - v['reliability'][:, i])
-            d_mimo = np.abs(alphas - results['mimo']['reliability'][:, i])
-            plt.plot(alphas, d_mimo-d, label=k, c = cm(i), alpha=0.8)
+            d_miso = np.abs(alphas - results['miso']['reliability'][:, i])
+            plt.plot(alphas, d_miso-d, label=k, c = cm(i), alpha=0.8)
         plt.xticks(rotation=90)
         ax[z].set_title(k)
         ax[z].set_xticks(alphas)
@@ -209,15 +209,15 @@ def plot_QS_diff(results,size,font_scale):
     n_q = results[list(results.keys())[0]]['reliability'].shape[0]
     alphas = np.linspace(1 / n_q, 1 - 1 / n_q, n_q)
     for k,v in results.items():
-        if k=='mimo':
+        if k=='miso':
             continue
         plt.sca(ax[z])
         n = v['skill'].shape[1]
         cm = plt.get_cmap('viridis',n)
         for i in range(n):
-            d_mimo = results['mimo']['skill'][:, i]
+            d_miso = results['miso']['skill'][:, i]
             d = v['skill'][:, i]
-            plt.plot(alphas, d_mimo-d, label=k, c = cm(i), alpha=0.8)
+            plt.plot(alphas, d_miso-d, label=k, c = cm(i), alpha=0.8)
         plt.xticks(rotation=90)
         ax[z].set_title(k)
         ax[z].set_xticks(alphas)

@@ -16,20 +16,19 @@ plot_pars = {"size": (5, 2.5),
 
 # variable: MAPE, independent var: n harmonics, groups: time series
 
-results = np.load('data/cv_res_m4.npy', allow_pickle=True).item()
+results = np.load('data/cv_res_m4_fourier.npy', allow_pickle=True).item()
 k_cv = len(results[list(results.keys())[0]])
 
 resall = pd.DataFrame()
 for k in results.keys():
     results_k = get_cv_results(results[k])
     results_k['series'] = k
-    resall = pd.concat([resall, pd.DataFrame(results_k, index=[0])], axis=0)
+    resall = pd.concat([resall, pd.DataFrame(results_k)], axis=0)
 
 # rename columns for plot
 resall = resall[['mape_miso', 'mape_mimo', 'mape']]
 resall.columns = ['miso', 'mimo', 'mbt']
-fig, ax = nemenyi_unrolled_plot(resall, 'rank [-]', '', k_cv=k_cv, rot=60, **plot_pars)
-ax.set_xticks([])
+fig, ax = nemenyi_unrolled_plot(resall, 'rank [-]', 'n freq [-]', k_cv=k_cv, rot=60, **plot_pars)
 
 plt.title('MAPE')
 plt.savefig('figs/stats_m4.pdf')
@@ -109,7 +108,7 @@ results_all['mbt lin-quad refit'] = squared_refit['mgb']
 n_quantiles = 11
 alphas = np.linspace(1/n_quantiles, 1-1/n_quantiles, n_quantiles)
 
-group_filter = ['mimo', 'mbt refit', 'mbt lin-quad refit']
+group_filter = ['miso', 'mbt refit', 'mbt lin-quad refit']
 score_filter = 'skill'
 res = pd.DataFrame()
 for k in group_filter:
@@ -127,7 +126,7 @@ plt.show()
 
 # variable: reliability distance, independent var: quantile, groups: 24 steps ahead
 
-group_filter = ['mimo', 'mbt refit', 'mbt lin-quad refit']
+group_filter = ['miso', 'mbt refit', 'mbt lin-quad refit']
 score_filter = 'reliability'
 res = pd.DataFrame()
 for k in group_filter:
